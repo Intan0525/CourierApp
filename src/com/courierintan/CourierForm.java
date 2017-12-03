@@ -13,7 +13,7 @@ import com.courierintan.model.Paket;
  * @author user
  */
 public class CourierForm extends javax.swing.JFrame {
-
+    
     CourierDao courierDao = new CourierDao();
 
     /**
@@ -69,7 +69,6 @@ public class CourierForm extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         cbKotaTujuan = new javax.swing.JComboBox<>(courierDao.tarifPaket().toArray());
         jLabel17 = new javax.swing.JLabel();
-        dcTanggalKirim = new com.toedter.calendar.JDateChooser();
         jLabel22 = new javax.swing.JLabel();
         cbJenisLayanan = new javax.swing.JComboBox<>();
         jLabel25 = new javax.swing.JLabel();
@@ -262,9 +261,9 @@ public class CourierForm extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                     .addComponent(txtformatTeleponPenerima, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cbKotaPenerima, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtKodePosPenerima, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addComponent(cbKotaPenerima, javax.swing.GroupLayout.Alignment.LEADING, 0, 114, Short.MAX_VALUE)
+                        .addComponent(txtKodePosPenerima, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,15 +309,21 @@ public class CourierForm extends javax.swing.JFrame {
 
         jLabel17.setText("Tanggal Kirim");
 
-        dcTanggalKirim.setDateFormatString("dd MM yyyy");
-
         jLabel22.setText("Jenis Layanan");
 
         cbJenisLayanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regular", "SDS", "ONS", "HDS" }));
+        cbJenisLayanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbJenisLayananActionPerformed(evt);
+            }
+        });
 
         jLabel25.setText("Pembayaran");
 
         cbPembayaran.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Debit", "Credit " }));
+
+        Double val = courierDao.getTarifPaket(cbJenisLayanan.getSelectedItem().toString(), cbKotaTujuan.getSelectedItem().toString());
+        txtHargaJenis.setText(String.valueOf(val));
 
         jLabel37.setText("Rp.");
 
@@ -343,10 +348,8 @@ public class CourierForm extends javax.swing.JFrame {
                     .addComponent(cbJenisLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNoPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cbKotaTujuan, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(dcTanggalKirim, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbKotaTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,10 +358,8 @@ public class CourierForm extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtNoPaket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dcTanggalKirim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
+                .addGap(13, 13, 13)
+                .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbKotaTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,9 +455,19 @@ public class CourierForm extends javax.swing.JFrame {
 
         radioAsusansi.add(jRadioButton1);
         jRadioButton1.setText("Ya");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         radioAsusansi.add(jRadioButton2);
         jRadioButton2.setText("Tidak");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel24.setText("Harga Barang");
 
@@ -480,40 +491,43 @@ public class CourierForm extends javax.swing.JFrame {
                     .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel15)
+                                        .addComponent(jLabel16))
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel21)
+                                        .addComponent(jLabel19)
+                                        .addComponent(jLabel20)))
+                                .addGap(29, 29, 29))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jLabel16))
+                                    .addComponent(jLabel23)
+                                    .addComponent(jLabel24))
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtJenisBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtTinggi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                                    .addComponent(txtLebar, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPanjang, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtBerat, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel19)
-                                    .addComponent(jLabel20)))
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel24))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel26)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel29)
+                                    .addComponent(jLabel30)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel27)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtHargaBarang))
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtJenisBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtTinggi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                                        .addComponent(txtLebar, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtPanjang, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtBerat, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel26)
-                                        .addComponent(jLabel28)
-                                        .addComponent(jLabel29)
-                                        .addComponent(jLabel30)))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jRadioButton1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jRadioButton2))))))
+                                .addComponent(txtHargaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton2)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -548,18 +562,23 @@ public class CourierForm extends javax.swing.JFrame {
                         .addComponent(jLabel30)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtHargaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(txtHargaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         btnCetak.setText("Cetak");
 
@@ -640,14 +659,14 @@ public class CourierForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(22, Short.MAX_VALUE))))
+                        .addContainerGap(20, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-    
+        
     }//GEN-LAST:event_btnTestActionPerformed
 
     private void cbKotaTujuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKotaTujuanActionPerformed
@@ -664,6 +683,41 @@ public class CourierForm extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_cbKotaPenerimaActionPerformed
+
+    private void cbJenisLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbJenisLayananActionPerformed
+        // TODO add your handling code here:
+        String terpilih = (String) cbJenisLayanan.getSelectedItem();
+        Double val = courierDao.getTarifPaket(terpilih, cbKotaTujuan.getSelectedItem().toString());
+        txtHargaJenis.setText(String.valueOf(val));
+    }//GEN-LAST:event_cbJenisLayananActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        String jenis = (String) txtHargaJenis.getText();
+        String berat = (String) txtBerat.getText();
+        String hrgBarang = (String) txtHargaBarang.getText();
+        double val = courierDao.hitungBeratPaket(Double.parseDouble(jenis), Double.parseDouble(berat));
+        lblBeratPaket.setText(String.valueOf(val));
+        double valAsuransi = courierDao.hitungAsuransi(Double.parseDouble(hrgBarang));
+        lblAsuransi.setText(String.valueOf(valAsuransi));
+        
+        double valBiaya = courierDao.hitungBiayaPengiriman(val, valAsuransi);
+        lblTotalPembayaran.setText(String.valueOf(valBiaya));
+        
+        
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        txtHargaBarang.setEnabled(true);
+        String hrgBarang = (String) txtHargaBarang.getText();
+        double val = courierDao.hitungAsuransi(Double.parseDouble(hrgBarang));
+        lblAsuransi.setText(String.valueOf(val));
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        txtHargaBarang.setText("0");
+        txtHargaBarang.setEnabled(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -711,7 +765,6 @@ public class CourierForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbPembayaran;
     private javax.swing.JComboBox<String> cbProvinsiPenerima;
     private javax.swing.JComboBox<String> cbProvinsiPengirim;
-    private com.toedter.calendar.JDateChooser dcTanggalKirim;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

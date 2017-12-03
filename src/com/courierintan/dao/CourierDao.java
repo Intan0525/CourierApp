@@ -21,18 +21,29 @@ public class CourierDao {
     
     Paket paket = new Paket();
     
+    public  double hitungBiayaPengiriman(double hitungBeratPaket, double hitungAsuransi){
+    double biaya = hitungBeratPaket + hitungAsuransi;
+    return biaya;
+    }
     
-    public double hitungBeratPaket(){
-        double beratPaket = paket.getHargaTipe() * paket.getBerat();
+    public double hitungAsuransi(double hargaBarang){
+    double hitungAsuran = hargaBarang * 0.3;
+    return hitungAsuran;
+    }
+    
+    public double hitungBeratPaket(double hargaTipe, double berat){
+        double beratPaket = hargaTipe * berat;
     return beratPaket;
     }
     
-
-    public List<Paket> tipePaket(String kota) {
+  
+    public Double getTarifPaket(String paketType, String namaKotaTujuan) {
         ArrayList<Paket> tarifs = new ArrayList<>();
+        Double result = null;
 
         try {
-            Scanner scan = new Scanner(new File("C:/Java/tarif.txt"));
+            Scanner scan = new Scanner(new File("E:/datapaket.txt"));
+            
 
             while (scan.hasNextLine()) {
                 Paket paket = new Paket();
@@ -40,31 +51,40 @@ public class CourierDao {
                 String line = scan.nextLine();
                 String[] data = line.split(",");
                 String namaKota = data[0];
-                paket.setJenisLayanan(tipeP);
+//                paket.setJenisLayanan(tipeP);
+                System.out.println("");
+                
+                if(namaKotaTujuan.equalsIgnoreCase(namaKota)){
+                    if(paketType.equalsIgnoreCase("regular")){
+                        result = Double.parseDouble(data[1].trim());
+                        System.out.println(Double.parseDouble(data[1].trim()));
+                    } else if(paketType.equalsIgnoreCase("ons")){
+                        result = Double.parseDouble(data[2].trim());
+                        System.out.println(Double.parseDouble(data[2].trim()));
+                    }else if(paketType.equalsIgnoreCase("hds")){
+                        result = Double.parseDouble(data[3].trim());
+                        System.out.println(Double.parseDouble(data[3].trim()));
+                    }else if(paketType.equalsIgnoreCase("sds")){
+                        result = Double.parseDouble(data[4].trim());
+                        System.out.println(Double.parseDouble(data[4].trim()));
+                    }
+                }
 
 //                paket.setKotaTujuan(data[0]);
-                paket.getJenisLayanan().setRegular(Double.parseDouble(data[1].trim()));
-                paket.getJenisLayanan().setOns(Double.parseDouble(data[2].trim()));
-                paket.getJenisLayanan().setHds(Double.parseDouble(data[3].trim()));
-                paket.getJenisLayanan().setSds(Double.parseDouble(data[4].trim()));
-                tarifs.add(paket);
-
-                for (Paket tarif : tarifs) {
-                    System.out.println(tarif);
-                }
+                
                 
             }
         } catch (FileNotFoundException fileErr) {
             System.out.println("File Tidak Ada" + fileErr);
         }
-        return tarifs;
+        return result;
     }
 
     public List<Paket> tarifPaket() {
         ArrayList<Paket> tarifs = new ArrayList<>();
 
         try {
-            Scanner scan = new Scanner(new File("C:/Java/tarif.txt"));
+            Scanner scan = new Scanner(new File("E:/datapaket.txt"));
 
             while (scan.hasNextLine()) {
                 Paket paket = new Paket();
