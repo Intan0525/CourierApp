@@ -7,6 +7,7 @@ package com.courierintan;
 
 import com.courierintan.dao.CourierDao;
 import com.courierintan.model.Paket;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -107,7 +108,6 @@ public class CourierForm extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
         btnCetak = new javax.swing.JButton();
-        btnTest = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -311,7 +311,7 @@ public class CourierForm extends javax.swing.JFrame {
 
         jLabel22.setText("Jenis Layanan");
 
-        cbJenisLayanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regular", "SDS", "ONS", "HDS" }));
+        cbJenisLayanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regular", "ONS", "HDS", "SDS" }));
         cbJenisLayanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbJenisLayananActionPerformed(evt);
@@ -581,11 +581,9 @@ public class CourierForm extends javax.swing.JFrame {
         });
 
         btnCetak.setText("Cetak");
-
-        btnTest.setText("Test");
-        btnTest.addActionListener(new java.awt.event.ActionListener() {
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTestActionPerformed(evt);
+                btnCetakActionPerformed(evt);
             }
         });
 
@@ -628,9 +626,7 @@ public class CourierForm extends javax.swing.JFrame {
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnTest)
-                        .addGap(32, 32, 32)
+                        .addGap(103, 103, 103)
                         .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -650,11 +646,9 @@ public class CourierForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnTest)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(73, 73, 73))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -664,10 +658,6 @@ public class CourierForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-        
-    }//GEN-LAST:event_btnTestActionPerformed
 
     private void cbKotaTujuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKotaTujuanActionPerformed
         // TODO add your handling code here:
@@ -692,16 +682,24 @@ public class CourierForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cbJenisLayananActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        try{
         String jenis = (String) txtHargaJenis.getText();
         String berat = (String) txtBerat.getText();
         String hrgBarang = (String) txtHargaBarang.getText();
         double val = courierDao.hitungBeratPaket(Double.parseDouble(jenis), Double.parseDouble(berat));
         lblBeratPaket.setText(String.valueOf(val));
+        
         double valAsuransi = courierDao.hitungAsuransi(Double.parseDouble(hrgBarang));
         lblAsuransi.setText(String.valueOf(valAsuransi));
         
         double valBiaya = courierDao.hitungBiayaPengiriman(val, valAsuransi);
         lblTotalPembayaran.setText(String.valueOf(valBiaya));
+        }
+        catch (Exception e){
+            if (txtHargaBarang.getText().equals(null))
+            System.out.println("Isi Harga Barang");
+        }
+        
         
         
     }//GEN-LAST:event_btnSubmitActionPerformed
@@ -718,6 +716,17 @@ public class CourierForm extends javax.swing.JFrame {
         txtHargaBarang.setEnabled(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+        JOptionPane.showMessageDialog(rootPane,
+                                        "No. Paket : "+txtNoPaket.getText()+
+                                        "\nPengiriman atas nama : "+txtNamaPengirim.getText()+
+                                        "\nPengiriman Asal : "+cbKotaPengirim.getSelectedItem()+        
+                                        "\nAlamat : "+txtaAlamatPengirim.getText()+        
+                                        "\n\nTujuan Pengiriman : "+cbKotaTujuan.getSelectedItem().toString()+
+                                        "\nBiaya Asuransi : Rp. "+lblAsuransi.getText()+
+                                        "\nTotal Biaya Pengiriman : Rp. "+lblTotalPembayaran.getText());
+    }//GEN-LAST:event_btnCetakActionPerformed
 
     /**
      * @param args the command line arguments
@@ -757,7 +766,6 @@ public class CourierForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JButton btnTest;
     private javax.swing.JComboBox<String> cbJenisLayanan;
     private javax.swing.JComboBox<Object> cbKotaPenerima;
     private javax.swing.JComboBox<String> cbKotaPengirim;
