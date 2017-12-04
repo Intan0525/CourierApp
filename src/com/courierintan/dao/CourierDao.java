@@ -27,13 +27,13 @@ public class CourierDao {
     }
     
     public double hitungAsuransi(double hargaBarang){
-    double hitungAsuran = hargaBarang * 0.3;
+    double hitungAsuran = hargaBarang * 0.003;
     return hitungAsuran;
     }
     
-    public double hitungBeratPaket(double hargaTipe, double berat){
+    public double hitungBeratPaket(double hargaTipe, double berat) {
         double beratPaket = hargaTipe * berat;
-    return beratPaket;
+        return beratPaket;
     }
     
   
@@ -46,7 +46,7 @@ public class CourierDao {
             
 
             while (scan.hasNextLine()) {
-                Paket paket = new Paket();
+//                Paket paket = new Paket();
                 Tipe tipeP = new Tipe();
                 String line = scan.nextLine();
                 String[] data = line.split(",");
