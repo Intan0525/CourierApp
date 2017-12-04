@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class CourierForm extends javax.swing.JFrame {
-
+    
     CourierDao courierDao = new CourierDao();
 
     /**
@@ -61,14 +61,13 @@ public class CourierForm extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         cbProvinsiPenerima = new javax.swing.JComboBox<>();
-        cbKotaPenerima = new javax.swing.JComboBox<>(courierDao.tarifPaket().toArray());
         txtKodePosPenerima = new javax.swing.JTextField();
         txtformatTeleponPenerima = new javax.swing.JFormattedTextField();
+        cbKotaTujuan = new javax.swing.JComboBox<>(courierDao.tarifPaket().toArray());
         jPanel3 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtNoPaket = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        cbKotaTujuan = new javax.swing.JComboBox<>(courierDao.tarifPaket().toArray());
         jLabel17 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         cbJenisLayanan = new javax.swing.JComboBox<>();
@@ -77,6 +76,7 @@ public class CourierForm extends javax.swing.JFrame {
         txtHargaJenis = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        txtKotaTujuan = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
@@ -228,9 +228,9 @@ public class CourierForm extends javax.swing.JFrame {
             }
         });
 
-        cbKotaPenerima.addActionListener(new java.awt.event.ActionListener() {
+        cbKotaTujuan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbKotaPenerimaActionPerformed(evt);
+                cbKotaTujuanActionPerformed(evt);
             }
         });
 
@@ -261,10 +261,9 @@ public class CourierForm extends javax.swing.JFrame {
                         .addComponent(txtNamaPenerima)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
                     .addComponent(txtformatTeleponPenerima, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cbKotaPenerima, javax.swing.GroupLayout.Alignment.LEADING, 0, 114, Short.MAX_VALUE)
-                        .addComponent(txtKodePosPenerima, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(txtKodePosPenerima, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbKotaTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,8 +282,8 @@ public class CourierForm extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbKotaPenerima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(cbKotaTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -301,12 +300,6 @@ public class CourierForm extends javax.swing.JFrame {
         jLabel13.setText("No. Paket");
 
         jLabel14.setText("Kota Tujuan");
-
-        cbKotaTujuan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbKotaTujuanActionPerformed(evt);
-            }
-        });
 
         jLabel17.setText("Tanggal Kirim");
 
@@ -333,6 +326,8 @@ public class CourierForm extends javax.swing.JFrame {
 
         jLabel37.setText("Rp.");
 
+        txtKotaTujuan.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -347,16 +342,15 @@ public class CourierForm extends javax.swing.JFrame {
                     .addComponent(jLabel14))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbJenisLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel37)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtHargaJenis, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cbJenisLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNoPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbKotaTujuan, javax.swing.GroupLayout.Alignment.LEADING, 0, 119, Short.MAX_VALUE)))
+                    .addComponent(txtKotaTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -372,8 +366,8 @@ public class CourierForm extends javax.swing.JFrame {
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbKotaTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
+                    .addComponent(jLabel14)
+                    .addComponent(txtKotaTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
@@ -386,7 +380,7 @@ public class CourierForm extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 0, 153), 2, true));
@@ -672,20 +666,9 @@ public class CourierForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbKotaTujuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKotaTujuanActionPerformed
-        // TODO add your handling code here:
-        Object pilihKotaTujuan = (Object) cbKotaTujuan.getSelectedItem();
-    }//GEN-LAST:event_cbKotaTujuanActionPerformed
-
     private void cbProvinsiPenerimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProvinsiPenerimaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbProvinsiPenerimaActionPerformed
-
-    private void cbKotaPenerimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKotaPenerimaActionPerformed
-        Object pilihKotaPenerima = (Object) cbKotaPenerima.getSelectedItem();
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbKotaPenerimaActionPerformed
 
     private void cbJenisLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbJenisLayananActionPerformed
         // TODO add your handling code here:
@@ -701,10 +684,10 @@ public class CourierForm extends javax.swing.JFrame {
             String hrgBarang = (String) txtHargaBarang.getText();
             double val = courierDao.hitungBeratPaket(Double.parseDouble(jenis), Double.parseDouble(berat));
             lblBeratPaket.setText(String.valueOf(val));
-
+            
             double valAsuransi = courierDao.hitungAsuransi(Double.parseDouble(hrgBarang));
             lblAsuransi.setText(String.valueOf(valAsuransi));
-
+            
             double valBiaya = courierDao.hitungBiayaPengiriman(val, valAsuransi);
             lblTotalPembayaran.setText(String.valueOf(valBiaya));
         } catch (Exception e) {
@@ -712,7 +695,7 @@ public class CourierForm extends javax.swing.JFrame {
                 System.out.println("Isi Harga Barang");
             }
         }
-
+        
 
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -747,10 +730,15 @@ public class CourierForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHargaJenisActionPerformed
 
     private void txtHargaBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaBarangActionPerformed
-      
 
 // TODO add your handling code here:
     }//GEN-LAST:event_txtHargaBarangActionPerformed
+
+    private void cbKotaTujuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKotaTujuanActionPerformed
+        // TODO add your handling code here:
+        Object pilihKotaTujuan = (Object) cbKotaTujuan.getSelectedItem();
+        txtKotaTujuan.setText(pilihKotaTujuan.toString());
+    }//GEN-LAST:event_cbKotaTujuanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -791,7 +779,6 @@ public class CourierForm extends javax.swing.JFrame {
     private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cbJenisLayanan;
-    private javax.swing.JComboBox<Object> cbKotaPenerima;
     private javax.swing.JComboBox<String> cbKotaPengirim;
     private javax.swing.JComboBox<Object> cbKotaTujuan;
     private javax.swing.JComboBox<String> cbPembayaran;
@@ -858,6 +845,7 @@ public class CourierForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtJenisBarang;
     private javax.swing.JTextField txtKodePosPenerima;
     private javax.swing.JTextField txtKodePosPengirim;
+    private javax.swing.JTextField txtKotaTujuan;
     private javax.swing.JTextField txtLebar;
     private javax.swing.JTextField txtNamaPenerima;
     private javax.swing.JTextField txtNamaPengirim;

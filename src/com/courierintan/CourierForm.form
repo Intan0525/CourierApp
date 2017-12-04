@@ -343,12 +343,10 @@
                           <Component id="jScrollPane2" pref="248" max="32767" attributes="0"/>
                       </Group>
                       <Component id="txtformatTeleponPenerima" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="cbKotaPenerima" alignment="0" pref="114" max="32767" attributes="0"/>
-                          <Component id="txtKodePosPenerima" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="txtKodePosPenerima" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                      <Component id="cbKotaTujuan" min="-2" pref="119" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="43" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -372,8 +370,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cbKotaPenerima" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbKotaTujuan" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -455,23 +453,23 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbKotaPenerima">
+        <Component class="javax.swing.JTextField" name="txtKodePosPenerima">
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="txtformatTeleponPenerima">
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbKotaTujuan">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbKotaPenerimaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbKotaTujuanActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;&gt;(courierDao.tarifPaket().toArray())"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
           </AuxValues>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtKodePosPenerima">
-        </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtformatTeleponPenerima">
         </Component>
       </SubComponents>
     </Container>
@@ -498,18 +496,16 @@
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jDateChooser1" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
+                      <Component id="cbJenisLayanan" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtHargaJenis" min="-2" pref="101" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="cbJenisLayanan" min="-2" max="-2" attributes="0"/>
                       <Component id="txtNoPaket" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
                       <Component id="cbPembayaran" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cbKotaTujuan" alignment="0" pref="119" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="txtKotaTujuan" min="-2" pref="114" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -530,8 +526,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cbKotaTujuan" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtKotaTujuan" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -548,7 +544,7 @@
                       <Component id="cbPembayaran" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="42" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -565,20 +561,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Kota Tujuan"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="cbKotaTujuan">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbKotaTujuanActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;&gt;(courierDao.tarifPaket().toArray())"/>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
@@ -642,6 +624,11 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtKotaTujuan">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
